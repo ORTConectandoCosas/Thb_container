@@ -1,0 +1,375 @@
+{
+  "title": "Contenedor",
+  "configuration": {
+    "widgets": {
+      "6ed23f31-bc14-5189-3484-14c5c23053a9": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "round_switch",
+        "type": "rpc",
+        "title": "New widget",
+        "sizeX": 8,
+        "sizeY": 4,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "requestTimeout": 500,
+            "initialValue": false,
+            "getValueMethod": "getDispenseValue",
+            "setValueMethod": "setDispenseValue",
+            "title": "Round switch",
+            "retrieveValueMethod": "rpc",
+            "parseValueFunction": "return data ? true : false;",
+            "convertValueFunction": "return value;"
+          },
+          "title": "Dispensar",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "cae5c57b-996f-502c-378c-d359c2644ec6"
+          ]
+        },
+        "id": "6ed23f31-bc14-5189-3484-14c5c23053a9"
+      },
+      "7f265939-d4ab-89a1-2953-411748ccf13f": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "switch_control",
+        "type": "rpc",
+        "title": "New widget",
+        "sizeX": 9,
+        "sizeY": 3,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "requestTimeout": 500,
+            "initialValue": true,
+            "getValueMethod": "getLockValue",
+            "setValueMethod": "setLockValue",
+            "showOnOffLabels": false,
+            "title": "Switch control",
+            "retrieveValueMethod": "rpc",
+            "parseValueFunction": "return value ? true : false;",
+            "convertValueFunction": "return value;",
+            "valueKey": "value"
+          },
+          "title": "Bloquear Dispensado",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "cae5c57b-996f-502c-378c-d359c2644ec6"
+          ]
+        },
+        "id": "7f265939-d4ab-89a1-2953-411748ccf13f"
+      },
+      "e28d4b92-9067-de71-c0f0-b0bddc365c6a": {
+        "isSystemType": true,
+        "bundleAlias": "cards",
+        "typeAlias": "simple_card",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 11,
+        "sizeY": 4,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "dispensingState",
+                  "type": "attribute",
+                  "label": "dispensingState",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.8433182758408457
+                }
+              ],
+              "entityAliasId": "cae5c57b-996f-502c-378c-d359c2644ec6"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#ff5722",
+          "color": "rgba(255, 255, 255, 0.87)",
+          "padding": "16px",
+          "settings": {
+            "labelPosition": "top"
+          },
+          "title": "funcionamientos",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "units": "",
+          "decimals": 0,
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "widgetStyle": {},
+          "actions": {},
+          "legendConfig": {
+            "position": "bottom",
+            "showMin": false,
+            "showMax": false,
+            "showAvg": true,
+            "showTotal": false
+          }
+        },
+        "id": "e28d4b92-9067-de71-c0f0-b0bddc365c6a"
+      },
+      "831a5c94-6eba-b66a-cc15-46d15a3d047f": {
+        "isSystemType": true,
+        "bundleAlias": "cards",
+        "typeAlias": "simple_card",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 10,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "LockMessage",
+                  "type": "attribute",
+                  "label": "LockMessage",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.19777348387417404
+                }
+              ],
+              "entityAliasId": "cae5c57b-996f-502c-378c-d359c2644ec6"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#ff5722",
+          "color": "rgba(255, 255, 255, 0.87)",
+          "padding": "16px",
+          "settings": {
+            "labelPosition": "top"
+          },
+          "title": "New Simple card",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "units": "°C",
+          "decimals": 0,
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "widgetStyle": {},
+          "actions": {}
+        },
+        "id": "831a5c94-6eba-b66a-cc15-46d15a3d047f"
+      },
+      "ae56ad4a-8ecc-50e3-91ec-08981fe8dbb1": {
+        "isSystemType": true,
+        "bundleAlias": "cards",
+        "typeAlias": "timeseries_table",
+        "type": "timeseries",
+        "title": "Timeseries table",
+        "sizeX": 16,
+        "sizeY": 13,
+        "row": 0,
+        "col": 2,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "entityAliasId": "ef7845cb-3f8d-7cc7-0ac2-166d02114cd7",
+              "dataKeys": [
+                {
+                  "name": "space",
+                  "label": "space",
+                  "type": "timeseries",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.03367066507844063
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "interval": 1000,
+              "timewindowMs": 60000
+            },
+            "aggregation": {
+              "type": "NONE",
+              "limit": 200
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "rgb(255, 255, 255)",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showTimestamp": true,
+            "displayPagination": true,
+            "defaultPageSize": 10
+          },
+          "title": "Timeseries table",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": false,
+          "showLegend": false,
+          "widgetStyle": {},
+          "actions": {}
+        },
+        "id": "ae56ad4a-8ecc-50e3-91ec-08981fe8dbb1"
+      }
+    },
+    "states": {
+      "default": {
+        "name": "Contenedor",
+        "root": true,
+        "layouts": {
+          "main": {
+            "widgets": {
+              "6ed23f31-bc14-5189-3484-14c5c23053a9": {
+                "sizeX": 8,
+                "sizeY": 4,
+                "row": 0,
+                "col": 0
+              },
+              "7f265939-d4ab-89a1-2953-411748ccf13f": {
+                "sizeX": 9,
+                "sizeY": 3,
+                "row": 4,
+                "col": 0
+              },
+              "e28d4b92-9067-de71-c0f0-b0bddc365c6a": {
+                "sizeX": 11,
+                "sizeY": 4,
+                "row": 0,
+                "col": 8
+              },
+              "831a5c94-6eba-b66a-cc15-46d15a3d047f": {
+                "sizeX": 10,
+                "sizeY": 3,
+                "row": 4,
+                "col": 9
+              },
+              "ae56ad4a-8ecc-50e3-91ec-08981fe8dbb1": {
+                "sizeX": 8,
+                "sizeY": 6.5,
+                "row": 7,
+                "col": 0
+              }
+            },
+            "gridSettings": {
+              "backgroundColor": "#eeeeee",
+              "color": "rgba(0,0,0,0.870588)",
+              "columns": 24,
+              "margins": [
+                10,
+                10
+              ],
+              "backgroundSizeMode": "100%"
+            }
+          }
+        }
+      }
+    },
+    "entityAliases": {
+      "cae5c57b-996f-502c-378c-d359c2644ec6": {
+        "id": "cae5c57b-996f-502c-378c-d359c2644ec6",
+        "alias": "nodeMCUContainer",
+        "filter": {
+          "type": "deviceType",
+          "resolveMultiple": true,
+          "deviceType": "nodeMCU",
+          "deviceNameFilter": ""
+        }
+      },
+      "ef7845cb-3f8d-7cc7-0ac2-166d02114cd7": {
+        "id": "ef7845cb-3f8d-7cc7-0ac2-166d02114cd7",
+        "alias": "Container",
+        "filter": {
+          "type": "singleEntity",
+          "singleEntity": {
+            "entityType": "DEVICE",
+            "id": "dfacc4b0-951e-11e9-be84-756f6b1303b5"
+          },
+          "resolveMultiple": false
+        }
+      }
+    },
+    "timewindow": {
+      "displayValue": "",
+      "selectedTab": 0,
+      "realtime": {
+        "interval": 1000,
+        "timewindowMs": 60000
+      },
+      "history": {
+        "historyType": 0,
+        "interval": 1000,
+        "timewindowMs": 60000,
+        "fixedTimewindow": {
+          "startTimeMs": 1561143643965,
+          "endTimeMs": 1561230043965
+        }
+      },
+      "aggregation": {
+        "type": "AVG",
+        "limit": 2500
+      }
+    },
+    "settings": {
+      "stateControllerId": "entity",
+      "showTitle": false,
+      "showDashboardsSelect": true,
+      "showEntitiesSelect": true,
+      "showDashboardTimewindow": true,
+      "showDashboardExport": true,
+      "toolbarAlwaysOpen": true
+    }
+  },
+  "name": "Contenedor"
+}

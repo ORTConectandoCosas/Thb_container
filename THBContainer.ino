@@ -14,13 +14,13 @@ https://github.com/Martinsos/arduino-lib-hc-sr04 for distance sensor
 //***************MODIFICAR PARA SU PROYECTO *********************
 //  configuración datos wifi 
 // descomentar el define y poner los valores de su red y de su dispositivo
-#define WIFI_AP "WIFNAME"
-#define WIFI_PASSWORD "WIFIPASS"
+#define WIFI_AP "WiFiName"
+#define WIFI_PASSWORD "WiFiPass"
 
 
 //  configuración datos thingsboard
-#define NODE_NAME "DEVICE"   //nombre que le pusieron al dispositivo cuando lo crearon
-#define NODE_TOKEN "DEVICE TOKEN"   //Token que genera Thingboard para dispositivo cuando lo crearon
+#define NODE_NAME "CONTAINER"   //nombre que le pusieron al dispositivo cuando lo crearon
+#define NODE_TOKEN "deviceToken"   //Token que genera Thingboard para dispositivo cuando lo crearon
 
 
 //***************NO MODIFICAR *********************
@@ -69,7 +69,8 @@ unsigned long debounceDelay = 50;    // the debounce time; increase if the outpu
 bool serverDispenseButtonState = false;
 bool serverLockMode = false;
 bool dispenserCommand = false;
-unsigned int dispensingTime = 10000;
+bool dispenserEmpty = false;
+unsigned int dispensingTime = 6000;
 
 //-------------------------------------------------------------
 // THB request timer variables
@@ -108,36 +109,36 @@ void loop()
       }
 
     if (serverLockMode == false) {
-        unsigned int startDispensing = millis();
-        // check physical button
-        do {
-            readDispenserButton();
-            client.loop();
-        } while(dispense() && (millis() - startDispensing < dispensingTime));
-    
-        // check server button
-        startDispensing = millis();
-        do {
-            dispenserState = serverDispenseButtonState;
-            client.loop();
-        } while(dispense() && (millis() - startDispensing < dispensingTime));
-        serverDispenseButtonState = false; // just in case it exit becuase of timer
-        
-        // send remaing space on container
-        if ( millis() - lastSend > elapsedTime ) { // Update and send only after 1 second
-          sendRemainingSpaceOnContainer();
-          lastSend = millis();
+        if (dispenserEmpty == false) {
+          unsigned int startDispensing = millis();
+          // check physical button
+          do {
+              readDispenserButton();
+              client.loop();
+          } while(dispense() && (millis() - startDispensing < dispensingTime));
+      
+          // check server button
+          startDispensing = millis();
+          do {
+              dispenserState = serverDispenseButtonState;
+              client.loop();
+          } while(dispense() && (millis() - startDispensing < dispensingTime));
+          serverDispenseButtonState = false; // just in case it exit because of timer
         }
-        
       } else {
         // in case locked mode change in between dispensing operations, lets close de dispenser
         dispenserState = false;
         dispense();
       }
+
+            // send remaing space on container
+      if ( millis() - lastSend > elapsedTime ) { // Update and send only after 1 second
+        sendRemainingSpaceOnContainer();
+        lastSend = millis();
+      }
+  
     client.loop();
 }
-
-
 
 
 /*
@@ -193,11 +194,15 @@ void processRequestAndReply(char *message, const char* topic)
   String methodName = doc["method"];
   if (methodName.equals("setDispenseValue") &&  serverLockMode == false ) {
     bool response  = doc["params"];
-    processDispenseFromServer(response);
+    serverDispenseButtonState = response;
+
   }  else if (methodName.equals("setLockValue")) {
     bool response  = doc["params"];
     processLockFromServer(response);
-  }
+  } else if (methodName.equals("empty") &&  serverLockMode == false) {
+    bool response  = doc["params"];
+    processEmptyFromServer(response);
+    }
   
 }
 
@@ -224,6 +229,7 @@ void processLockFromServer(bool response)
 
     // se envia la repsuesta la cual se despliegan en las tarjetas creadas para el atrubito 
     client.publish(attributesTopic, attributes);
+
 }
 
 void processDispenseFromServer(bool response)
@@ -252,14 +258,36 @@ void processDispenseFromServer(bool response)
     client.publish(attributesTopic, attributes);
 }
 
+void processEmptyFromServer(bool response)
+{
+   const int capacity = JSON_OBJECT_SIZE(4);
+   StaticJsonDocument<capacity> doc;
+   
+    dispenserEmpty = response;
+    
+   
+    //Update card
 
+    doc["emptyState"] = dispenserEmpty ? "Vacio"  :"Lleno" ;
+
+    
+    String output = "";
+    serializeJson(doc, output);
+    
+    char attributes[100];
+    output.toCharArray( attributes, 100 );
+ 
+    Serial.print("respuesta aributos: ");
+    Serial.println(attributes);
+
+    // se envia la repsuesta la cual se despliegan en las tarjetas creadas para el atrubito 
+    client.publish(attributesTopic, attributes);
+}
 
 /* 
  *  Solution Sensor management functions
  *
  */
-
-
 void sendRemainingSpaceOnContainer()
 {
       
@@ -299,9 +327,11 @@ bool dispense()
     if (dispenserState == true) {
       Serial.println("Abre");
       dispenserServo.write(dispenserOpenPos);
+      processDispenseFromServer(dispenserState);
     } 
     else {
         Serial.println("Cierra");
+        processDispenseFromServer(dispenserState);
         dispenserServo.write(dispenserClosePos);
       }
     previousDispensingState = dispenserState;
@@ -343,7 +373,6 @@ void readDispenserButton()
   
 
 }
-
 
 
 //***************NO MODIFICAR - Conexion con Wifi y ThingsBoard *********************

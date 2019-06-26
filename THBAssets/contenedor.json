@@ -24,7 +24,8 @@
             "title": "Round switch",
             "retrieveValueMethod": "rpc",
             "parseValueFunction": "return data ? true : false;",
-            "convertValueFunction": "return value;"
+            "convertValueFunction": "return value;",
+            "valueKey": "value"
           },
           "title": "Dispensar",
           "dropShadow": true,
@@ -36,7 +37,18 @@
           },
           "useDashboardTimewindow": true,
           "showLegend": false,
-          "actions": {},
+          "actions": {
+            "headerButton": [
+              {
+                "id": "f27bcda1-b7cc-0af7-aad4-f51dbca5c8e6",
+                "name": "configuracion",
+                "icon": "more_horiz",
+                "type": "openDashboardState",
+                "targetDashboardStateId": "config",
+                "setEntityId": true
+              }
+            ]
+          },
           "decimals": 2,
           "datasources": [],
           "targetDeviceAliasIds": [
@@ -44,51 +56,6 @@
           ]
         },
         "id": "6ed23f31-bc14-5189-3484-14c5c23053a9"
-      },
-      "7f265939-d4ab-89a1-2953-411748ccf13f": {
-        "isSystemType": true,
-        "bundleAlias": "control_widgets",
-        "typeAlias": "switch_control",
-        "type": "rpc",
-        "title": "New widget",
-        "sizeX": 9,
-        "sizeY": 3,
-        "config": {
-          "targetDeviceAliases": [],
-          "showTitle": true,
-          "backgroundColor": "#fff",
-          "color": "rgba(0, 0, 0, 0.87)",
-          "padding": "0px",
-          "settings": {
-            "requestTimeout": 500,
-            "initialValue": true,
-            "getValueMethod": "getLockValue",
-            "setValueMethod": "setLockValue",
-            "showOnOffLabels": false,
-            "title": "Switch control",
-            "retrieveValueMethod": "rpc",
-            "parseValueFunction": "return value ? true : false;",
-            "convertValueFunction": "return value;",
-            "valueKey": "value"
-          },
-          "title": "Bloquear Dispensado",
-          "dropShadow": true,
-          "enableFullscreen": false,
-          "widgetStyle": {},
-          "titleStyle": {
-            "fontSize": "16px",
-            "fontWeight": 400
-          },
-          "useDashboardTimewindow": true,
-          "showLegend": false,
-          "actions": {},
-          "decimals": 2,
-          "datasources": [],
-          "targetDeviceAliasIds": [
-            "cae5c57b-996f-502c-378c-d359c2644ec6"
-          ]
-        },
-        "id": "7f265939-d4ab-89a1-2953-411748ccf13f"
       },
       "e28d4b92-9067-de71-c0f0-b0bddc365c6a": {
         "isSystemType": true,
@@ -209,8 +176,8 @@
         "typeAlias": "timeseries_table",
         "type": "timeseries",
         "title": "Timeseries table",
-        "sizeX": 16,
-        "sizeY": 13,
+        "sizeX": 8,
+        "sizeY": 6,
         "row": 0,
         "col": 2,
         "config": {
@@ -262,6 +229,156 @@
           "actions": {}
         },
         "id": "ae56ad4a-8ecc-50e3-91ec-08981fe8dbb1"
+      },
+      "6db3b0ce-e8f0-4210-ce8b-9ff770ebc640": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 7.5,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "minSpaceAvailable",
+                  "type": "attribute",
+                  "label": "minSpaceAvailable",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.11908203182390054
+                }
+              ],
+              "entityAliasId": "ef7845cb-3f8d-7cc7-0ac2-166d02114cd7"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": true
+          },
+          "title": "min espacio",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {}
+        },
+        "id": "6db3b0ce-e8f0-4210-ce8b-9ff770ebc640"
+      },
+      "20d617b6-dfcc-b0a2-2235-36d05de87309": {
+        "isSystemType": true,
+        "bundleAlias": "cards",
+        "typeAlias": "simple_card",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 10,
+        "sizeY": 4,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "emptyState",
+                  "type": "attribute",
+                  "label": "emptyState",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.30444639653514827
+                }
+              ],
+              "entityAliasId": "ef7845cb-3f8d-7cc7-0ac2-166d02114cd7"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#ff5722",
+          "color": "rgba(255, 255, 255, 0.87)",
+          "padding": "16px",
+          "settings": {
+            "labelPosition": "top"
+          },
+          "title": "New Simple card",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "units": "°C",
+          "decimals": 0,
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "widgetStyle": {},
+          "actions": {}
+        },
+        "id": "20d617b6-dfcc-b0a2-2235-36d05de87309"
+      },
+      "95b3b952-29fe-3bda-64d6-b73f2c2ec22c": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "switch_control",
+        "type": "rpc",
+        "title": "New widget",
+        "sizeX": 8,
+        "sizeY": 3,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "requestTimeout": 500,
+            "initialValue": false,
+            "getValueMethod": "getLockValue",
+            "setValueMethod": "setLockValue",
+            "showOnOffLabels": true,
+            "title": "Switch control",
+            "retrieveValueMethod": "rpc",
+            "valueKey": "value",
+            "parseValueFunction": "return data ? true : false;",
+            "convertValueFunction": "return value;"
+          },
+          "title": "Bloquear",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "ef7845cb-3f8d-7cc7-0ac2-166d02114cd7"
+          ]
+        },
+        "id": "95b3b952-29fe-3bda-64d6-b73f2c2ec22c"
       }
     },
     "states": {
@@ -275,12 +392,6 @@
                 "sizeX": 8,
                 "sizeY": 4,
                 "row": 0,
-                "col": 0
-              },
-              "7f265939-d4ab-89a1-2953-411748ccf13f": {
-                "sizeX": 9,
-                "sizeY": 3,
-                "row": 4,
                 "col": 0
               },
               "e28d4b92-9067-de71-c0f0-b0bddc365c6a": {
@@ -297,8 +408,46 @@
               },
               "ae56ad4a-8ecc-50e3-91ec-08981fe8dbb1": {
                 "sizeX": 8,
-                "sizeY": 6.5,
+                "sizeY": 6,
                 "row": 7,
+                "col": 0
+              },
+              "20d617b6-dfcc-b0a2-2235-36d05de87309": {
+                "sizeX": 10,
+                "sizeY": 4,
+                "row": 7,
+                "col": 9
+              },
+              "95b3b952-29fe-3bda-64d6-b73f2c2ec22c": {
+                "sizeX": 8,
+                "sizeY": 3,
+                "row": 4,
+                "col": 0
+              }
+            },
+            "gridSettings": {
+              "backgroundColor": "#eeeeee",
+              "color": "rgba(0,0,0,0.870588)",
+              "columns": 24,
+              "margins": [
+                10,
+                10
+              ],
+              "backgroundSizeMode": "100%"
+            }
+          }
+        }
+      },
+      "config": {
+        "name": "config",
+        "root": false,
+        "layouts": {
+          "main": {
+            "widgets": {
+              "6db3b0ce-e8f0-4210-ce8b-9ff770ebc640": {
+                "sizeX": 7,
+                "sizeY": 3,
+                "row": 0,
                 "col": 0
               }
             },

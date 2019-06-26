@@ -24,8 +24,8 @@
       },
       {
         "additionalInfo": {
-          "layoutX": 640,
-          "layoutY": 55
+          "layoutX": 712,
+          "layoutY": 35
         },
         "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
         "name": "saveTelemetry",
@@ -36,8 +36,8 @@
       },
       {
         "additionalInfo": {
-          "layoutX": 622,
-          "layoutY": 226
+          "layoutX": 711,
+          "layoutY": 263
         },
         "type": "org.thingsboard.rule.engine.rpc.TbSendRPCRequestNode",
         "name": "sendToContainer",
@@ -81,10 +81,91 @@
         "configuration": {
           "clientAttributeNames": [],
           "sharedAttributeNames": [
-            "dispensingState"
+            "dispensingState",
+            "lockedValue",
+            "LockMessage"
           ],
           "serverAttributeNames": [],
           "latestTsKeyNames": []
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 378,
+          "layoutY": 40
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "agregarAtributos",
+        "debugMode": true,
+        "configuration": {
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [
+            "minSpaceAvailable",
+            "lockedValue",
+            "LockMessage"
+          ],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": []
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 600,
+          "layoutY": 131
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "PocoEspacio",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "\nreturn msg.space < metadata.shared_minSpaceAvailable;"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 1215,
+          "layoutY": 262
+        },
+        "type": "org.thingsboard.rule.engine.rpc.TbSendRPCRequestNode",
+        "name": "sendLockMsg",
+        "debugMode": true,
+        "configuration": {
+          "timeoutInSeconds": 60
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 918,
+          "layoutY": 117
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "prepararEmptyMensaje",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "var newMsg = {};\nnewMsg.method = \"empty\";\nnewMsg.params = true;\nmsgType = 'RPC_CALL_FROM_SERVER_TO_DEVICE';\nreturn {msg: newMsg, metadata: metadata, msgType: msgType};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 936,
+          "layoutY": 228
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "preparaLleno",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "var newMsg = {};\nnewMsg.method = \"empty\";\nnewMsg.params = false;\nmsgType = 'RPC_CALL_FROM_SERVER_TO_DEVICE';\nreturn {msg: newMsg, metadata: metadata, msgType: msgType};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 1297,
+          "layoutY": 366
+        },
+        "type": "org.thingsboard.rule.engine.action.TbLogNode",
+        "name": "log2",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "return 'Incoming message:\\n' + JSON.stringify(msg) + '\\nIncoming metadata:\\n' + JSON.stringify(metadata);"
         }
       }
     ],
@@ -96,7 +177,7 @@
       },
       {
         "fromIndex": 0,
-        "toIndex": 1,
+        "toIndex": 6,
         "type": "Post telemetry"
       },
       {
@@ -110,8 +191,43 @@
         "type": "RPC Request to Device"
       },
       {
+        "fromIndex": 1,
+        "toIndex": 7,
+        "type": "Success"
+      },
+      {
         "fromIndex": 5,
         "toIndex": 4,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 1,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 7,
+        "toIndex": 10,
+        "type": "False"
+      },
+      {
+        "fromIndex": 7,
+        "toIndex": 9,
+        "type": "True"
+      },
+      {
+        "fromIndex": 8,
+        "toIndex": 11,
+        "type": "Failure"
+      },
+      {
+        "fromIndex": 9,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 10,
+        "toIndex": 8,
         "type": "Success"
       }
     ],

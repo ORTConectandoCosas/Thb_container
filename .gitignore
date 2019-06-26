@@ -34,3 +34,4 @@
 
 #información
 *.info
+.DS_Store
